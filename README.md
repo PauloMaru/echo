@@ -75,3 +75,7 @@ CloudFormation, Ansible, and Git.
   DevOps, packaging and distributing Python applications can be tricky when
   third-party libraries are involved. For this task, stick with Python's standard
   library - it's sufficient for the job and keeps things simple.
+  This [RealPython Socket Programming Guide](https://realpython.com/python-sockets/)
+  is a good resource to start and learn about basic network programming concepts, but
+  a modern Python application would make use of the
+  [asyncio module](https://docs.python.org/3/library/asyncio.html).
