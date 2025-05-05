@@ -1,4 +1,5 @@
 import socket
+import sys
 
 HOST = "0.0.0.0"  # Accepts aconnections on all available interfaces
 PORT = 7  # Port to listen ( port < 1023 needs root/sudo)
@@ -8,10 +9,9 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)  # Allow immediate reuse of the port after termination
     try:
         s.bind((HOST, PORT))
-    except Error:
+    except:
         print("Error! It's likely you need to use sudo/root to execute this script")
-        return
-        
+        sys.exit(1)
     s.listen()
     print(f"Listening on port {PORT}")
     
