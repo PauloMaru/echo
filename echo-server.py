@@ -1,8 +1,8 @@
 import socket
 import sys
 
-HOST = "0.0.0.0"  # Accepts aconnections on all available interfaces
-PORT = 7  # Port to listen ( port < 1023 needs root/sudo)
+HOST = "0.0.0.0"  # Accepts connections on all available interfaces
+PORT = 3000  # Port to listen 
 
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s: 
     
@@ -10,7 +10,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     try:
         s.bind((HOST, PORT))
     except:
-        print("Error! It's likely you need to use sudo/root to execute this script")
+        print("Error! Something went wrong...")
         sys.exit(1)
     s.listen()
     print(f"Listening on port {PORT}")
