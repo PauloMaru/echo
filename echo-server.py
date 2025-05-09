@@ -20,6 +20,9 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         print(f"Connected by {addr}")
         while True:
             data = conn.recv(1024)
+            print(f"Data: {data}")
             if not data:
+                print("Breaking...")
                 break
             conn.sendall(data)
+            print("Sent all!)   
