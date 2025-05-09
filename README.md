@@ -44,6 +44,9 @@ CloudFormation, Ansible, and Git.
   consistency and reduces the risk of manual errors.
 - The echo service must be deployed using Ansible, maintaining automation and
   repeatability across different environments.
+- The echo service must be managed by the system's execution environment
+  (e.g., run as a systemd service), ensuring it starts on boot, restarts on
+  failure, and integrates with standard process supervision tools.
 
 ### Constraints
 
@@ -66,7 +69,7 @@ CloudFormation, Ansible, and Git.
   some of which may be complex. Save these commands as shell scripts for quick
   reuse and to avoid retyping.
 - **Document your process**: While this is a hands-on task, documenting your
-  process - especially for repetitive steps—can save you time later. Commenting
+  process - especially for repetitive steps - can save you time later. Commenting
   on configuration files or scripts is a good practice.
 - **Focus on automation**: Automation is at the heart of DevOps. Always think
   about automating any manual steps, no matter how simple. This mindset will
