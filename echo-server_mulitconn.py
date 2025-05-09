@@ -3,8 +3,6 @@ import socket
 import selectors
 import types
 
-HOST = "0.0.0.0"  # Accepts connections on all available interfaces
-PORT = 3000  # Port to listen 
 
 def accept_wrapper(sock):
     conn, addr = sock.accept()  # Should be ready to read
@@ -33,10 +31,11 @@ def service_connection(key, mask):
 
 sel = selectors.DefaultSelector()
 
+host, port = sys.argv[1], int(sys.argv[2])
 lsock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-lsock.bind((HOST, PORT))
+lsock.bind((host, port))
 lsock.listen()
-print(f"Listening on {(HOST, PORT)}")
+print(f"Listening on {(host, port)}")
 lsock.setblocking(False)
 sel.register(lsock, selectors.EVENT_READ, data=None)
 
