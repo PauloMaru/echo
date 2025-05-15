@@ -30,3 +30,6 @@ Resources:
       KeyName: !Ref KeyPair
       SecurityGroupIds:
         - !Ref StandardSecurityGroup
+      Tags :
+        - Key: Name 
+          Value: echo-server
