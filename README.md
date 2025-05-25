@@ -1,84 +1,68 @@
-# Echo as a Service
+# Echo Service
 
 This document outlines the task of building and deploying a simple TCP-based
 echo service ([RFC 862](https://tools.ietf.org/html/rfc862)) as part of the
 [Protohackers "Smoke Test" challenge](https://protohackers.com/problem/0).
-It specifies key requirements and constraints, guiding you through the application
-setup with modern DevOps tools like AWS CloudFormation, Ansible, and Git.
+It specifies key requirements and constraints, with the goal of leading you
+to use modern DevOps environments and tools (including AWS, GitHub, Ansible)
+to setup and manage the application.
+You're expected to have basic familiarity with Linux and core IT concepts.
 
-### Scope
+The scope of this tutorial includes:
 
-- **Application Implementation**:
-  Build a TCP-based echo service based on RFC 862.
-- **Infrastructure Provisioning**: Provision a minimal EC2 instance and
+- Application implementation: Build a TCP-based echo service as specified in RFC 862.
+- Infrastructure provisioning: Provision a minimal EC2 instance and
   necessary resources via CloudFormation.
-- **Configuration and Deployment**: Automate setup and deployment of the
+- Configuration and deployment: Automate setup and deployment of the
   service using Ansible.
-- **Version Control**: Manage both application code and infrastructure
+- Version control: Manage application code and infrastructure
   configuration using Git.
-
-This document assumes you have basic familiarity with Linux and IT practices.
-We'll focus on applying modern DevOps tools, so expect to get hands-on with
-CloudFormation, Ansible, and Git.
 
 ## System Requirements Specification
 
 ### Functional Requirements
 
-- The functional requirements are met when the application passes the
+- The functional requirements are met once the application passes the
   Protohackers "Smoke Test" challenge. Your application should implement the
   Echo Protocol (RFC 862), but the choice of programming language and tools
   is entirely up to you.
 
 ### Non-Functional Requirements
 
-- The application code and system configuration must be hosted in a Git
-  repository (e.g., GitHub) to maintain version control and support
-  collaboration.
-- The TCP service must allow the listening port to be configured without
-  changing the code, making deployment easier and more flexible.
-- The EC2 instance must be provisioned using AWS CloudFormation, ensuring
-  infrastructure is defined as code for repeatability.
+- The application code and system configuration must be hosted in a GitHub repository.
+- The TCP service must support configuration of the listening port without code changes.
+- The EC2 instance must be provisioned using AWS CloudFormation.
 - Instance configuration must be automated with Ansible, including package
-  installation, user setup, and system configuration. This automation ensures
-  consistency and reduces the risk of manual errors.
-- The echo service must be deployed using Ansible, maintaining automation and
-  repeatability across different environments.
-- The echo service must be managed by the system's execution environment
-  (e.g., run as a systemd service), ensuring it starts on boot, restarts on
-  failure, and integrates with standard process supervision tools.
+  installation, user setup, and system-level configuration.
+- The echo service must be deployed using Ansible.
+- The echo service must be managed by the system's execution environment,
+  ensuring it starts on boot.
 
 ### Constraints
 
 - Use CloudFormation to provision the EC2 instance and all required
-  resources, and manage the CloudFormation stacks with the AWS CLI to ensure
-  consistency.
-- Use the AWS CLI to start and stop EC2 instances and retrieve system
-  information (e.g., instance IP address). This helps keep the process
-  automated and avoids reliance on the AWS Management Console.
-- All configuration tasks on the EC2 instance must be automated with Ansible.
-  Direct SSH access for configuration is not allowed, ensuring the process is
-  fully automated and repeatable.
+  resources. Manage CloudFormation stacks using the AWS CLI.
+- Use the AWS CLI to start and stop EC2 instances and to retrieve system
+  information (e.g., instance IP address).
+- All instance configuration must be automated using Ansible.
+  Direct SSH access for configuration tasks is not allowed.
 
 ## Guidance
 
-- **Get comfortable with your shell**: A lot of DevOps work involves using the
-  terminal, so make sure you're comfortable with your shell and terminal
-  application. You'll be using them extensively during this task.
-- **Save useful shell commands**: You'll be executing a lot of shell commands,
-  some of which may be complex. Save these commands as shell scripts for quick
-  reuse and to avoid retyping.
-- **Document your process**: While this is a hands-on task, documenting your
-  process - especially for repetitive steps - can save you time later. Commenting
-  on configuration files or scripts is a good practice.
-- **Focus on automation**: Automation is at the heart of DevOps. Always think
-  about automating any manual steps, no matter how simple. This mindset will
-  be invaluable for more complex tasks in the future.
-- **If using Python, stick to the standard library**: While Python is popular in
-  DevOps, packaging and distributing Python applications can be tricky when
-  third-party libraries are involved. For this task, stick with Python's standard
-  library - it's sufficient for the job and keeps things simple.
+- **Get comfortable with your shell**: Much of DevOps work happens in the terminal.
+  Make sure you're comfortable with your shell and terminal application of choice.
+- **Save useful shell commands**: You'll run many shell commands, some of which will
+  be fairly complex. Save these as scripts
+  (or [just](https://just.systems/man/en/) recipes) for quick reuse.
+- **Focus on automation**: DevOps is rooted in automation. Look for opportunities
+  to eliminate manual steps, even if they seem trivial.
+- **If using Python, stick to the standard library**: Python is widely used in DevOps,
+  but packaging applications that depend on third-party libraries can be painful.
+  For this task, the standard library is more than enough and avoids extra complexity.
   This [RealPython Socket Programming Guide](https://realpython.com/python-sockets/)
-  is a good resource to start and learn about basic network programming concepts, but
-  a modern Python application would make use of the
+  is a good place to start. For modern async applications check out Python's 
   [asyncio module](https://docs.python.org/3/library/asyncio.html).
+- **Leverage your systems' service manager**: Use systemd to manage the service. 
+  It simplifies startup behvior, logging and monitoring.
+  This [RHEL guide to systemd unit files](https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/using_systemd_unit_files_to_customize_and_optimize_your_system/assembly_working-with-systemd-unit-files_working-with-systemd)
+  is a great resource to get started.
